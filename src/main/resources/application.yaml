@@ -1,0 +1,88 @@
+# datasource config
+spring:
+  application:
+    name: init
+  profiles:
+    active: dev
+
+  # 支持 swagger3
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: "061000"
+    url: jdbc:mysql://localhost:3306/init
+
+  # Redis 配置
+  # todo 需替换配置，然后取消注释
+  data:
+    redis:
+      database: 0
+      host: 192.168.6.3
+      port: 6379
+      timeout: 5000
+  # session 配置
+  session:
+    # todo 取消注释开启分布式 session（须先配置 Redis）
+    redis:
+      repository-type: default
+    # 30 天过期
+    timeout: 2592000
+
+  # 文件上传
+  servlet:
+    multipart:
+      # 大小限制
+      max-file-size: 10MB
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: false
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      logic-delete-field: isDelete # 全局逻辑删除的实体字段名
+      logic-delete-value: 1 # 逻辑已删除值（默认为 1）
+      logic-not-delete-value: 0 # 逻辑未删除值（默认为 0）
+
+server:
+  address: 0.0.0.0
+  port: 8610
+  servlet:
+    context-path: /api
+    # cookie 30 天过期
+    session:
+      cookie:
+        max-age: 2592000
+
+# springdoc-openapi项目配置
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+  api-docs:
+    path: /v3/api-docs
+  group-configs:
+    - group: 'PanApi'
+      paths-to-match: '/**'
+      packages-to-scan: org.borei.springbootinit.controller.api
+
+# knife4j的增强配置，不需要增强可以不配
+knife4j:
+  enable: true
+  setting:
+    language: ZH_CN
+
+# 对象存储
+# todo 需替换配置
+cos:
+  client:
+    accessKey: xxx
+    secretKey: xxx
+    region: xxx
+    bucket: xxx
+
