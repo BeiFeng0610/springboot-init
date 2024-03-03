@@ -67,7 +67,7 @@ springdoc:
   api-docs:
     path: /v3/api-docs
   group-configs:
-    - group: 'PanApi'
+    - group: 'API'
       paths-to-match: '/**'
       packages-to-scan: org.borei.springbootinit.controller.api
 
